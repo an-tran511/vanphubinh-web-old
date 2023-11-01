@@ -28,6 +28,12 @@
       ],
       "@/*": [
         "src/*"
+      ],
+      "@routes/*": [
+        "src/routes/*"
+      ],
+      "@root/*": [
+        "src/routes/root/*"
       ]
     }
   },
