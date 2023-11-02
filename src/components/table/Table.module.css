@@ -1,0 +1,8 @@
+.header {
+  position: sticky;
+  box-shadow: var(--mantine-shadow-sm);
+  background-color: var(--mantine-color-body);
+  transition: box-shadow 150ms ease;
+  top: 0;
+  z-index: 1;
+}

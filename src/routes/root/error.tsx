@@ -1,3 +1,3 @@
-export const RootErrorPage = () => {
+export const ErrorPage = () => {
   return <div>ErrorPage</div>
 }

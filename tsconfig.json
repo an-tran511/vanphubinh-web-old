@@ -9,6 +9,7 @@
     ],
     "module": "ESNext",
     "skipLibCheck": true,
+    "noImplicitAny": false,
     /* Bundler mode */
     "moduleResolution": "bundler",
     "allowImportingTsExtensions": true,
@@ -34,6 +35,24 @@
       ],
       "@root/*": [
         "src/routes/root/*"
+      ],
+      "@items/*": [
+        "src/routes/items/*"
+      ],
+      "@api/*": [
+        "src/api/*"
+      ],
+      "@components/*": [
+        "src/components/*"
+      ],
+      "@crud/*": [
+        "src/components/crud/*"
+      ],
+      "@table/*": [
+        "src/components/table/*"
+      ],
+      "@utils/*": [
+        "src/utils/*"
       ]
     }
   },
