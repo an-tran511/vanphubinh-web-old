@@ -1,13 +1,17 @@
 import React from 'react'
 import ReactDOM from 'react-dom/client'
 import '@mantine/core/styles.css'
+import '@mantine/notifications/styles.css'
+import '@mantine/dates/styles.css'
 import { createBrowserRouter, RouterProvider } from 'react-router-dom'
-import { Center, createTheme, MantineProvider } from '@mantine/core'
+import { Center, createTheme, MantineProvider, Loader } from '@mantine/core'
+import { Notifications } from '@mantine/notifications'
+import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
+import { Suspensive, SuspensiveProvider } from '@suspensive/react'
 import { Root } from '@routes/root'
 import { ItemList } from '@routes/items'
-import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
-import { Loader } from '@mantine/core'
-import { Suspensive, SuspensiveProvider } from '@suspensive/react'
+import { SalesOrderList, SalesOrderCreate } from '@routes/sales-orders'
+import { PartnerList } from '@routes/partners'
 
 const queryClient = new QueryClient({
   defaultOptions: {
@@ -28,11 +32,38 @@ const router = createBrowserRouter([
     children: [
       {
         path: 'items',
-        element: <ItemList />
+        children: [
+          {
+            path: '',
+            element: <ItemList />
+          },
+          {
+            path: 'create',
+            element: <div>Create</div>
+          }
+        ]
       },
       {
-        path: 'items/create',
-        element: <div>Create</div>
+        path: 'sales-orders',
+        children: [
+          {
+            path: '',
+            element: <SalesOrderList />
+          },
+          {
+            path: 'create',
+            element: <SalesOrderCreate />
+          }
+        ]
+      },
+      {
+        path: 'partners',
+        children: [
+          {
+            path: '',
+            element: <PartnerList />
+          }
+        ]
       }
     ]
   }
@@ -58,6 +89,7 @@ ReactDOM.createRoot(document.getElementById('root')!).render(
     <SuspensiveProvider value={suspensive}>
       <QueryClientProvider client={queryClient}>
         <MantineProvider theme={theme}>
+          <Notifications />
           <RouterProvider router={router} />
         </MantineProvider>
       </QueryClientProvider>

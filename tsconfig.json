@@ -2,6 +2,10 @@
   "compilerOptions": {
     "target": "ES2020",
     "useDefineForClassFields": true,
+    "types": [
+      "node",
+      "vite/client"
+    ],
     "lib": [
       "ES2020",
       "DOM",
@@ -33,26 +37,26 @@
       "@routes/*": [
         "src/routes/*"
       ],
-      "@root/*": [
-        "src/routes/root/*"
-      ],
-      "@items/*": [
-        "src/routes/items/*"
-      ],
       "@api/*": [
         "src/api/*"
       ],
       "@components/*": [
         "src/components/*"
       ],
-      "@crud/*": [
-        "src/components/crud/*"
-      ],
-      "@table/*": [
-        "src/components/table/*"
-      ],
       "@utils/*": [
         "src/utils/*"
+      ],
+      "@select/*": [
+        "src/components/select/*"
+      ],
+      "@partners.ts/*": [
+        "src/api/partner.ts/*"
+      ],
+      "@partners/*": [
+        "src/routes/partners/*"
+      ],
+      "@hooks/*": [
+        "src/hooks/*"
       ]
     }
   },

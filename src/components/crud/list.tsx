@@ -1,7 +1,6 @@
 import { Button, Group, Pagination, Stack, TextInput, Title } from '@mantine/core'
 import { Search } from 'lucide-react'
-import { useEffect, ReactNode } from 'react'
-import { useSearchParams } from 'react-router-dom'
+import { ReactNode } from 'react'
 import { useNavigate } from 'react-router-dom'
 
 interface ListProps {
@@ -13,6 +12,9 @@ interface ListProps {
     lastPage: number
     onPageChange: (page: number) => void
   }
+  searchValue?: string
+  onChangeHandler?: (event: React.ChangeEvent<HTMLInputElement>) => void
+  onCreateHandler?: () => void
 }
 
 export const List = (props: ListProps) => {
@@ -20,27 +22,29 @@ export const List = (props: ListProps) => {
     title,
     children,
     isPlaceholderData,
-    pagination: { page, onPageChange, lastPage }
+    pagination: { page, onPageChange, lastPage },
+    searchValue,
+    onChangeHandler,
+    onCreateHandler
   } = props
-  const [searchParams, setSearchParams] = useSearchParams()
   const navigate = useNavigate()
-
   const defaultHandleClick = () => navigate(`create`)
-
-  useEffect(() => {
-    if (searchParams.get('page') === null) {
-      setSearchParams({ ['page']: '1' })
-    }
-  }, [searchParams, setSearchParams])
+  const createHandler = typeof onCreateHandler === 'function' ? onCreateHandler : defaultHandleClick
 
   return (
     <Stack h='100%'>
       <Group justify='space-between'>
         <Group>
           <Title order={3}>{title}</Title>
-          <Button onClick={defaultHandleClick}>Thêm</Button>
+          <Button onClick={createHandler}>Thêm</Button>
         </Group>
-        <TextInput w={{ base: '20vw' }} placeholder='Tìm kiếm' leftSection={<Search size={16} />} />
+        <TextInput
+          w={{ base: '20vw' }}
+          placeholder='Tìm kiếm'
+          leftSection={<Search size={16} />}
+          value={searchValue}
+          onChange={onChangeHandler}
+        />
 
         <Pagination.Root
           total={10}

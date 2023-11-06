@@ -5,24 +5,27 @@ import { List } from '@components/crud/list'
 import { DataTable } from '@components/table'
 import { removeLeadingTrailingSlashes } from '@utils/remove-leading-trailing-slash'
 import { useState } from 'react'
-import { useDebouncedValue } from '@mantine/hooks'
+import { useDebouncedCallback } from 'use-debounce'
 
 export const ItemList = () => {
   const location = useLocation()
   const [searchParams, setSearchParams] = useSearchParams()
-  const [value] = useState('')
-  const [debouncedValue] = useDebouncedValue(value, 200)
-
+  const [searchValue, setSearchValue] = useState('')
   const resource = removeLeadingTrailingSlashes(location.pathname)
-  const [page, setPage] = useState(Number.parseInt(searchParams.get('page') ?? '1'))
+  const pageParam = Number(searchParams.get('page') ?? '1')
+  const searchValueParam = searchParams.get('searchValue') ?? ''
 
   const handleSetPage = (page: number) => {
-    setPage(page)
-    setSearchParams({ ['page']: page.toString() })
+    setSearchParams({ ['searchValue']: searchValue, ['page']: page.toString() }, { replace: true })
   }
+
+  const onSearch = useDebouncedCallback((value: string) => {
+    setSearchParams({ ['searchValue']: value, ['page']: '1' }, { replace: true })
+  }, 500)
+
   const { data, isLoading, isPlaceholderData } = useQuery({
-    queryKey: [resource, 'list', page, debouncedValue],
-    queryFn: () => getItems({ page }),
+    queryKey: [resource, 'list', pageParam, searchValueParam],
+    queryFn: () => getItems({ page: pageParam, searchValue: searchValueParam }),
     placeholderData: keepPreviousData
   })
 
@@ -45,15 +48,22 @@ export const ItemList = () => {
     }
   ]
   const items = data?.data ?? []
+  const meta = data?.meta
 
   return (
     <List
       title='Sản phẩm'
       isPlaceholderData={isPlaceholderData}
       pagination={{
-        page: data?.meta?.currentPage ?? 0,
-        lastPage: data?.meta?.lastPage ?? 0,
+        page: meta?.currentPage ?? 0,
+        lastPage: meta?.lastPage ?? 0,
         onPageChange: handleSetPage
+      }}
+      searchValue={searchValue}
+      onChangeHandler={(event) => {
+        const { value } = event.currentTarget
+        setSearchValue(value)
+        onSearch(value)
       }}
     >
       <DataTable data={items} columns={columns} isLoading={isLoading} />

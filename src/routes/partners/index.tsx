@@ -1,0 +1,1 @@
+export { PartnerList } from './list'
