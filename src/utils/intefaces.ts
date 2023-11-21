@@ -1,3 +1,5 @@
+import { ELocationType } from './enums'
+
 export interface IItem {
   id: number
   name: string
@@ -7,6 +9,10 @@ export interface IItem {
 }
 
 export interface IUom {
+  id: number
+  name: string
+}
+export interface ICategory {
   id: number
   name: string
 }
@@ -30,6 +36,31 @@ export interface ISalesOrder {
 export interface ISalesOrderInput {
   customerId: number
   salesOrderLines: ISalesOrderLineInput[]
+}
+
+export interface IItemInput {
+  name: string
+  uomId: number
+  purchaseUomId?: number
+  secondaryUomId?: number
+  categoryId?: number
+  customerId?: number
+  hasPrinting?: boolean
+  isStockable?: boolean
+  cylinder?: {
+    setCount?: number
+    locationId?: number
+    width?: number
+    perimeter?: number
+    sharedCylinders?: {
+      cylinderSetId?: number
+      colors?: string
+    }
+  }
+}
+
+export interface ICategoryInput {
+  name: string
 }
 
 export interface ISalesOrderLine {
@@ -59,4 +90,24 @@ export interface GetResponse<T> {
     currentPage: number
     lastPage: number
   }
+}
+
+export interface IWarehouse {
+  id: number
+  name: string
+}
+
+export interface ILocation {
+  id: number
+  name: string
+  locationType: ELocationType
+  warehouseId: number
+  parentId: number
+}
+
+export interface ILocationInput {
+  name: string
+  locationType: ELocationType
+  warehouseId: number
+  parentId: number
 }

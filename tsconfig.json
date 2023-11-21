@@ -46,17 +46,11 @@
       "@utils/*": [
         "src/utils/*"
       ],
-      "@select/*": [
-        "src/components/select/*"
-      ],
-      "@partners.ts/*": [
-        "src/api/partner.ts/*"
-      ],
-      "@partners/*": [
-        "src/routes/partners/*"
-      ],
       "@hooks/*": [
         "src/hooks/*"
+      ],
+      "@locations/*": [
+        "src/routes/locations/*"
       ]
     }
   },

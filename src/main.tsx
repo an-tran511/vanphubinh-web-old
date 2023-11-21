@@ -9,9 +9,11 @@ import { Notifications } from '@mantine/notifications'
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
 import { Suspensive, SuspensiveProvider } from '@suspensive/react'
 import { Root } from '@routes/root'
-import { ItemList } from '@routes/items'
+import { ItemList, ItemCreate } from '@routes/items'
 import { SalesOrderList, SalesOrderCreate } from '@routes/sales-orders'
 import { PartnerList } from '@routes/partners'
+import { WarehouseList } from '@routes/warehouses'
+import { LocationList } from '@routes/locations'
 
 const queryClient = new QueryClient({
   defaultOptions: {
@@ -34,12 +36,12 @@ const router = createBrowserRouter([
         path: 'items',
         children: [
           {
-            path: '',
+            index: true,
             element: <ItemList />
           },
           {
             path: 'create',
-            element: <div>Create</div>
+            element: <ItemCreate />
           }
         ]
       },
@@ -64,12 +66,32 @@ const router = createBrowserRouter([
             element: <PartnerList />
           }
         ]
+      },
+      {
+        path: 'warehouses',
+        children: [
+          {
+            path: '',
+            element: <WarehouseList />
+          }
+        ]
+      },
+      {
+        path: 'locations',
+        children: [
+          {
+            path: '',
+            element: <LocationList />
+          }
+        ]
       }
     ]
   }
 ])
 
-const theme = createTheme({})
+const theme = createTheme({
+  primaryColor: 'blue'
+})
 const suspensive = new Suspensive({
   defaultOptions: {
     delay: {

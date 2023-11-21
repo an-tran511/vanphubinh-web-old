@@ -1,8 +1,10 @@
 .header {
-  position: sticky;
-  box-shadow: var(--mantine-shadow-sm);
-  background-color: var(--mantine-color-body);
   transition: box-shadow 150ms ease;
-  top: 0;
+  box-shadow: var(--mantine-shadow-xs);
+  text-transform: uppercase;
+  background-color: var(--mantine-color-gray-0);
   z-index: 1;
+}
+.table {
+  background-color: white;
 }

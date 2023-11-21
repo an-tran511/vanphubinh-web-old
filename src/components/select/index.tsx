@@ -65,6 +65,10 @@ export const CreatableSelect = factory<SelectFactory>((_props, ref) => {
     size,
     error,
     variant,
+    required,
+    classNames,
+    disabled,
+    description,
     filter,
     onChange,
     onSearchChange,
@@ -143,6 +147,7 @@ export const CreatableSelect = factory<SelectFactory>((_props, ref) => {
     <Combobox
       store={combobox}
       withinPortal={true}
+      disabled={disabled}
       onOptionSubmit={(val) => {
         const nextValue = allowDeselect
           ? optionsLockup[val].value === _value
@@ -168,6 +173,9 @@ export const CreatableSelect = factory<SelectFactory>((_props, ref) => {
     >
       <Combobox.Target targetType={'button'}>
         <InputBase
+          description={description}
+          classNames={classNames}
+          required={required}
           multiline
           component='button'
           type='button'
@@ -186,9 +194,10 @@ export const CreatableSelect = factory<SelectFactory>((_props, ref) => {
         </InputBase>
       </Combobox.Target>
 
-      <Combobox.Dropdown>
+      <Combobox.Dropdown style={{ boxShadow: 'var(--mantine-shadow-xl)' }}>
         {searchable ? (
           <Combobox.Search
+            variant='filled'
             value={search}
             onChange={(event) => setSearch(event.currentTarget.value)}
             placeholder='Tìm kiếm...'

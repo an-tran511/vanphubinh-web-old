@@ -3,13 +3,26 @@ import { IItem, IPartner, ISalesOrderInput } from '@utils/intefaces'
 import { useMemo, useState } from 'react'
 import { useFieldArray, useForm, useWatch } from 'react-hook-form'
 import { z } from 'zod'
-import { Text, Stack, Table, NumberInput as CoreNumberInput, Button, Grid, Title, Group } from '@mantine/core'
+import {
+  Text,
+  Stack,
+  Table,
+  NumberInput as CoreNumberInput,
+  Button,
+  Grid,
+  Title,
+  Group,
+  Card,
+  Flex
+} from '@mantine/core'
 import { useQuery, keepPreviousData } from '@tanstack/react-query'
 import { getPartners } from '@api/partner'
 import { HookFormSelect } from '@components/select/hook-form-select'
 import { useDebounce } from 'use-debounce'
 import { DatePickerInput, NumberInput, Select, Textarea } from 'react-hook-form-mantine'
 import { getItems } from '@/api'
+import classes from './Create.module.css'
+import { Create } from '@/components/crud/create'
 
 const schema = z.object({
   customerId: z.coerce.number(),
@@ -187,38 +200,77 @@ export const SalesOrderCreate = () => {
   ))
 
   return (
-    <Stack justify='space-between' h='100%'>
-      <Stack>
-        <HookFormSelect
-          name='customerId'
-          control={control}
-          label='Khách hàng'
-          placeholder='Chọn khách hàng'
-          data={partnerOptions}
-          searchValue={partnerSearchValue}
-          searchable
-          creatable
-          onSearchChange={onSearchPartner}
-          isLoadingOptions={isLoadingOptions}
-        />
-        <Table.ScrollContainer minWidth={700}>
-          <Table>
-            <Table.Thead>
-              <Table.Tr>
-                <Table.Th>#</Table.Th>
-                <Table.Th>Sản phẩm</Table.Th>
-                <Table.Th>Số lượng</Table.Th>
-                <Table.Th>Đơn giá</Table.Th>
-                <Table.Th>Thuế</Table.Th>
-                <Table.Th>Tạm tính</Table.Th>
-                <Table.Th>Ngày giao hàng</Table.Th>
-                <Table.Th>Ghi chú</Table.Th>
-              </Table.Tr>
-            </Table.Thead>
-            <Table.Tbody>{rows}</Table.Tbody>
-          </Table>
-        </Table.ScrollContainer>
+    <Create title='Đơn bán hàng'>
+      <Stack gap='0' justify='space-between'>
+        <Stack h='100%'>
+          <HookFormSelect
+            name='customerId'
+            control={control}
+            label='Khách hàng'
+            placeholder='Chọn khách hàng'
+            data={partnerOptions}
+            searchValue={partnerSearchValue}
+            searchable
+            creatable
+            onSearchChange={onSearchPartner}
+            isLoadingOptions={isLoadingOptions}
+          />
+          <Card padding='0' radius='sm' withBorder>
+            <Table.ScrollContainer minWidth={700} style={{}}>
+              <Table verticalSpacing='xs' stickyHeader>
+                <Table.Thead className={classes.header}>
+                  <Table.Tr>
+                    <Table.Th>
+                      <Text size='xs' c='dimmed' fw={700} truncate='end'>
+                        #
+                      </Text>
+                    </Table.Th>
+                    <Table.Th>
+                      <Text size='xs' c='dimmed' fw={700} truncate='end'>
+                        Sản phẩm
+                      </Text>
+                    </Table.Th>
+                    <Table.Th>
+                      <Text size='xs' c='dimmed' fw={700} truncate='end'>
+                        Số lượng
+                      </Text>
+                    </Table.Th>
+                    <Table.Th>
+                      <Text size='xs' c='dimmed' fw={700} truncate='end'>
+                        Đơn giá
+                      </Text>
+                    </Table.Th>
+                    <Table.Th>
+                      <Text size='xs' c='dimmed' fw={700} truncate='end'>
+                        Thuế
+                      </Text>
+                    </Table.Th>
+                    <Table.Th>
+                      <Text size='xs' c='dimmed' fw={700} truncate='end'>
+                        Tạm tính
+                      </Text>
+                    </Table.Th>
+                    <Table.Th>
+                      <Text size='xs' c='dimmed' fw={700} truncate='end'>
+                        Ngày giao hàng
+                      </Text>
+                    </Table.Th>
+                    <Table.Th>
+                      <Text size='xs' c='dimmed' fw={700} truncate='end'>
+                        Ghi chú
+                      </Text>
+                    </Table.Th>
+                  </Table.Tr>
+                </Table.Thead>
+                <Table.Tbody>{rows}</Table.Tbody>
+              </Table>
+            </Table.ScrollContainer>
+          </Card>
+        </Stack>
+      </Stack>
+      <Flex>
         <Button
+          p={0}
           variant='transparent'
           onClick={() =>
             append({
@@ -233,7 +285,7 @@ export const SalesOrderCreate = () => {
         >
           Thêm dòng
         </Button>
-      </Stack>
+      </Flex>
 
       <Grid justify='flex-end'>
         <Grid.Col span={{ base: 12, md: 4 }}>
@@ -256,6 +308,6 @@ export const SalesOrderCreate = () => {
           </div>
         </Grid.Col>
       </Grid>
-    </Stack>
+    </Create>
   )
 }

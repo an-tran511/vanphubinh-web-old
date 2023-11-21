@@ -82,7 +82,7 @@ export const SalesOrderList = () => {
 
   return (
     <List
-      title='Sản phẩm'
+      title='Đơn bán hàng'
       isPlaceholderData={isPlaceholderData}
       pagination={{
         page: meta?.currentPage ?? 0,

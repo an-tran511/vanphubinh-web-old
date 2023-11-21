@@ -6,6 +6,7 @@ import { DataTable } from '@components/table'
 import { removeLeadingTrailingSlashes } from '@utils/remove-leading-trailing-slash'
 import { useState } from 'react'
 import { useDebouncedCallback } from 'use-debounce'
+import { Card } from '@mantine/core'
 
 export const ItemList = () => {
   const location = useLocation()
@@ -52,7 +53,7 @@ export const ItemList = () => {
 
   return (
     <List
-      title='Sản phẩm'
+      title='Hàng hoá'
       isPlaceholderData={isPlaceholderData}
       pagination={{
         page: meta?.currentPage ?? 0,
