@@ -23,6 +23,10 @@ export const LocationList = () => {
     {
       accessorKey: 'name',
       header: 'Tên'
+    },
+    {
+      accessorKey: 'locationType',
+      header: 'Loại địa điểm'
     }
   ]
 

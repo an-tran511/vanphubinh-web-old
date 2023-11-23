@@ -5,12 +5,12 @@ export enum ESalesOrderStatus {
 }
 
 export enum ELocationType {
-  INTERNAL = 'internal',
-  VENDOR = 'vendor',
-  CUSTOMER = 'customer',
-  INVENTORY_LOSS = 'inventory_loss',
-  PRODUCTION = 'production',
-  TRANSIT = 'transit',
-  VIEW = 'view',
-  ASSET_ALLOCATION = 'asset_allocation'
+  INTERNAL = 'INTERNAL',
+  VENDOR = 'VENDOR',
+  CUSTOMER = 'CUSTOMER',
+  INVENTORY_LOSS = 'INVENTORY_LOSS',
+  PRODUCTION = 'PRODUCTION',
+  TRANSIT = 'TRANSIT',
+  VIEW = 'VIEW',
+  ASSET_ALLOCATION = 'ASSET_ALLOCATION'
 }
