@@ -101,11 +101,11 @@ export const NewLocationForm = () => {
             value: ELocationType.ASSET_ALLOCATION
           },
           {
-            label: 'Địa điểm tổng hợp',
+            label: 'Địa điểm gốc (không thể để tồn kho)',
             value: ELocationType.VIEW
           },
           {
-            label: 'Địa điểm tồn kho',
+            label: 'Địa điểm nội bộ',
             value: ELocationType.INTERNAL
           },
           {
