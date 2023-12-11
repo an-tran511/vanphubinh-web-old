@@ -39,6 +39,7 @@ export const PartnerCreate = ({ onClose }: { onClose: () => void }) => {
     await mutateAsync(values, {
       onSuccess: () => {
         queryClient.invalidateQueries({ queryKey: ['partners'] })
+        onClose()
       },
       onError: (error) => {
         notifications.show({

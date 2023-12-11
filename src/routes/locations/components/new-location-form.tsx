@@ -5,7 +5,7 @@ import { zodResolver } from '@hookform/resolvers/zod'
 import { ELocationType } from '@/utils/enums'
 import { TextInput } from 'react-hook-form-mantine'
 import { HookFormSelect } from '@components/select/hook-form-select'
-import { keepPreviousData, useQuery } from '@tanstack/react-query'
+import { useQuery } from '@tanstack/react-query'
 import { getWarehouses } from '@/api/warehouse'
 import { useMemo } from 'react'
 import { getLocations } from '@/api/location'
@@ -38,12 +38,11 @@ export const NewLocationForm = () => {
   })
   //Uom state
   const { data: warehouses } = useQuery({
-    queryKey: ['uoms', 'list'],
+    queryKey: ['warehouses', 'list'],
     queryFn: () => {
       const data = getWarehouses()
       return data
-    },
-    placeholderData: keepPreviousData
+    }
   })
 
   const warehouseOptions = useMemo(() => {
@@ -57,18 +56,17 @@ export const NewLocationForm = () => {
 
   //Uom state
   const { data: locations } = useQuery({
-    queryKey: ['uoms', 'list'],
+    queryKey: ['locations', 'list'],
     queryFn: () => {
       const data = getLocations()
       return data
-    },
-    placeholderData: keepPreviousData
+    }
   })
 
   const locationOptions = useMemo(() => {
     return locations
       ? locations.map((item: ILocation) => ({
-          label: String(item.name),
+          label: String(item.fullPathName),
           value: String(item.id)
         }))
       : []

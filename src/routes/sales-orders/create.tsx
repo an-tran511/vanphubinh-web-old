@@ -29,8 +29,8 @@ const schema = z.object({
   salesOrderLines: z.array(
     z.object({
       itemId: z.number(),
-      quantity: z.coerce.number(),
-      unitPrice: z.coerce.number(),
+      quantity: z.coerce.number().lte(0),
+      unitPrice: z.coerce.number().lte(0),
       taxRate: z.string(),
       note: z.string().optional(),
       deliveryDate: z.date().optional()
@@ -221,42 +221,42 @@ export const SalesOrderCreate = () => {
                 <Table.Thead className={classes.header}>
                   <Table.Tr>
                     <Table.Th>
-                      <Text size='xs' c='dimmed' fw={700} truncate='end'>
+                      <Text size='xs' c='black' fw={700} truncate='end'>
                         #
                       </Text>
                     </Table.Th>
                     <Table.Th>
-                      <Text size='xs' c='dimmed' fw={700} truncate='end'>
+                      <Text size='xs' c='black' fw={700} truncate='end'>
                         Sản phẩm
                       </Text>
                     </Table.Th>
                     <Table.Th>
-                      <Text size='xs' c='dimmed' fw={700} truncate='end'>
+                      <Text size='xs' c='black' fw={700} truncate='end'>
                         Số lượng
                       </Text>
                     </Table.Th>
                     <Table.Th>
-                      <Text size='xs' c='dimmed' fw={700} truncate='end'>
+                      <Text size='xs' c='black' fw={700} truncate='end'>
                         Đơn giá
                       </Text>
                     </Table.Th>
                     <Table.Th>
-                      <Text size='xs' c='dimmed' fw={700} truncate='end'>
+                      <Text size='xs' c='black' fw={700} truncate='end'>
                         Thuế
                       </Text>
                     </Table.Th>
                     <Table.Th>
-                      <Text size='xs' c='dimmed' fw={700} truncate='end'>
+                      <Text size='xs' c='black' fw={700} truncate='end'>
                         Tạm tính
                       </Text>
                     </Table.Th>
                     <Table.Th>
-                      <Text size='xs' c='dimmed' fw={700} truncate='end'>
+                      <Text size='xs' c='black' fw={700} truncate='end'>
                         Ngày giao hàng
                       </Text>
                     </Table.Th>
                     <Table.Th>
-                      <Text size='xs' c='dimmed' fw={700} truncate='end'>
+                      <Text size='xs' c='black' fw={700} truncate='end'>
                         Ghi chú
                       </Text>
                     </Table.Th>

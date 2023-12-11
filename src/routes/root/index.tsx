@@ -56,7 +56,7 @@ export const Root = () => {
           <Burger opened={opened} onClick={toggle} hiddenFrom='sm' size='sm' />
         </Group>
       </AppShell.Header>
-      <AppShell.Navbar p='md' withBorder bg='gray.0'>
+      <AppShell.Navbar p='md' withBorder bg='white'>
         <Group>
           <Burger opened={opened} onClick={toggle} hiddenFrom='sm' size='sm' />
           <Text>Navbar</Text>

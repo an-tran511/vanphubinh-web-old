@@ -46,12 +46,11 @@ export const List = (props: ListProps) => {
           </Group>
         </Stack>
       </Box>
-      <Box px='md' py='sm' bg='white'>
+      <Box px='md' py='sm' bg='white.0'>
         <Group justify='space-between'>
           <Group>
             <TextInput
               variant='default'
-              size='xs'
               w={{ base: '15vw' }}
               placeholder='Tìm kiếm'
               leftSection={<Search size={16} />}
@@ -61,7 +60,7 @@ export const List = (props: ListProps) => {
           </Group>
         </Group>
       </Box>
-      <Card px='md' py='0' h='100%' mah='100%'>
+      <Card px='md' py='0' h='100%' mah='100%' bg='white.0'>
         <Card
           p='0'
           withBorder

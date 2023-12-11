@@ -14,6 +14,7 @@ import { SalesOrderList, SalesOrderCreate } from '@routes/sales-orders'
 import { PartnerList } from '@routes/partners'
 import { WarehouseList } from '@routes/warehouses'
 import { LocationList } from '@routes/locations'
+import { CategoryList } from '@routes/categories'
 
 const queryClient = new QueryClient({
   defaultOptions: {
@@ -84,14 +85,21 @@ const router = createBrowserRouter([
             element: <LocationList />
           }
         ]
+      },
+      {
+        path: 'categories',
+        children: [
+          {
+            path: '',
+            element: <CategoryList />
+          }
+        ]
       }
     ]
   }
 ])
 
-const theme = createTheme({
-  primaryColor: 'blue'
-})
+const theme = createTheme({})
 const suspensive = new Suspensive({
   defaultOptions: {
     delay: {

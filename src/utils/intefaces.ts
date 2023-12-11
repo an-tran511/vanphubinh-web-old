@@ -47,9 +47,11 @@ export interface IItemInput {
   customerId?: number
   hasPrinting?: boolean
   isStockable?: boolean
+  customerReference?: string
+  colorsCount?: number
   cylinder?: {
-    setCount?: number
-    locationId?: number
+    count: number
+    location: string
     width?: number
     perimeter?: number
     sharedCylinders?: {
@@ -100,6 +102,7 @@ export interface IWarehouse {
 export interface ILocation {
   id: number
   name: string
+  fullPathName: string
   locationType: ELocationType
   warehouseId: number
   parentId: number

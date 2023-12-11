@@ -4,7 +4,7 @@ import { keepPreviousData, useQuery } from '@tanstack/react-query'
 import { ICategory, IItemInput, IPartner, IUom } from '@utils/intefaces'
 import { useMemo, useState } from 'react'
 import { useForm, useWatch } from 'react-hook-form'
-import { Checkbox, NumberInput, TextInput } from 'react-hook-form-mantine'
+import { Checkbox, NumberInput, TextInput, Textarea } from 'react-hook-form-mantine'
 import { z } from 'zod'
 import { getUoms } from '@api/uom'
 import { getCategories } from '@api/category'
@@ -23,8 +23,10 @@ const schema = z.object({
   hasPrinting: z.boolean().optional(),
   customerId: z.number().optional(),
   isStockable: z.boolean(),
+  customerReference: z.string(),
+  colorsCount: z.number().optional(),
   cylinder: z.object({
-    setCount: z.number().optional(),
+    count: z.number().optional(),
     width: z.number().optional(),
     perimeter: z.number().optional(),
     sharedCylinders: z.object({
@@ -46,8 +48,10 @@ export const ItemCreate = () => {
       hasPrinting: false,
       isStockable: true,
       customerId: undefined,
+      customerReference: undefined,
+      colorsCount: undefined,
       cylinder: {
-        setCount: 1,
+        count: 1,
         width: undefined,
         perimeter: undefined,
         sharedCylinders: {
@@ -124,12 +128,12 @@ export const ItemCreate = () => {
 
   return (
     <Create title='Hàng hoá'>
-      <Grid h='100%'>
+      <Grid h='100%' grow gutter='xl'>
         <Grid.Col span={8}>
-          <Stack>
+          <Stack gap='xl'>
             <Card padding='md' radius='sm' shadow='lg' withBorder>
               <Card.Section withBorder={opened} inheritPadding py='xs'>
-                <Group justify='space-between'>
+                <Group gap='xl' justify='space-between'>
                   <Text fw='500'>Thông tin chung</Text>
                   <ActionIcon variant='default' radius='xl' size='xs' onClick={toggle}>
                     {opened ? <ChevronUp width='70%' height='70%' /> : <ChevronDown width='70%' height='70%' />}
@@ -148,10 +152,20 @@ export const ItemCreate = () => {
                       placeholder='Nhãn nước suối'
                     />
                     <Flex gap='lg'>
-                      <Checkbox label='Hàng có lưu kho' name='hasPrinting' control={control} />
-                      <Checkbox label='Hàng có in ấn' name='hasPrinting' control={control} />
+                      <Checkbox
+                        label='Hàng có lưu kho'
+                        name='isStockable'
+                        control={control}
+                        classNames={{ label: classes.label }}
+                      />
+                      <Checkbox
+                        label='Hàng có in ấn'
+                        name='hasPrinting'
+                        control={control}
+                        classNames={{ label: classes.label }}
+                      />
                     </Flex>
-                    <Group grow align='flex-start'>
+                    <Group gap='xl' grow align='flex-start'>
                       <HookFormSelect
                         label='Đơn vị chính'
                         required
@@ -180,7 +194,7 @@ export const ItemCreate = () => {
                         classNames={{ label: classes.label }}
                       />
                     </Group>
-                    <Group grow>
+                    <Group gap='xl' grow>
                       <HookFormSelect
                         label='Nhóm hàng hoá'
                         name='categoryId'
@@ -202,7 +216,73 @@ export const ItemCreate = () => {
                         onSearchChange={onSearchPartner}
                         classNames={{ label: classes.label }}
                       />
+                      <TextInput
+                        classNames={{ label: classes.label }}
+                        label='Mã sp của KH'
+                        name='customerReference'
+                        control={control}
+                      />
                     </Group>
+                  </Stack>
+                </Card.Section>
+              </Collapse>
+            </Card>
+
+            <Card padding='md' radius='sm' shadow='lg' withBorder>
+              <Card.Section withBorder={opened} inheritPadding py='xs'>
+                <Group gap='xl' justify='space-between'>
+                  <Text fw='500'>Thông số sản phẩm</Text>
+                  <ActionIcon variant='default' radius='xl' size='xs' onClick={toggle}>
+                    {opened ? <ChevronUp width='70%' height='70%' /> : <ChevronDown width='70%' height='70%' />}
+                  </ActionIcon>
+                </Group>
+              </Card.Section>
+              <Collapse in={opened}>
+                <Card.Section inheritPadding pt='xs'>
+                  <Stack gap='xs'>
+                    <Group gap='xl' grow>
+                      <HookFormSelect
+                        label='Độ dày'
+                        name='colorsCount'
+                        data={['20', '25', '30', '35', '40', '45']}
+                        defaultValue={'35'}
+                        control={control}
+                        classNames={{ label: classes.label }}
+                      />
+                      <TextInput
+                        label='Chất liệu'
+                        name='colorsCount'
+                        control={control}
+                        classNames={{ label: classes.label }}
+                      />
+                      <NumberInput
+                        label='Số màu'
+                        name='colorsCount'
+                        control={control}
+                        classNames={{ label: classes.label }}
+                      />
+                    </Group>
+                    <Group gap='xl' grow>
+                      <NumberInput
+                        label='Chiều dài'
+                        name='colorsCount'
+                        control={control}
+                        classNames={{ label: classes.label }}
+                      />
+                      <TextInput
+                        label='Chiều rộng'
+                        name='colorsCount'
+                        control={control}
+                        classNames={{ label: classes.label }}
+                      />
+                      <NumberInput
+                        label='KT Dán'
+                        name='colorsCount'
+                        control={control}
+                        classNames={{ label: classes.label }}
+                      />
+                    </Group>
+                    <Textarea label='Thông tin khác' name='cylinder.count' control={control} />
                   </Stack>
                 </Card.Section>
               </Collapse>
@@ -211,7 +291,7 @@ export const ItemCreate = () => {
             {hasPrinting ? (
               <Card padding='md' radius='sm' shadow='lg' withBorder>
                 <Card.Section withBorder={opened} inheritPadding py='xs'>
-                  <Group justify='space-between'>
+                  <Group gap='xl' justify='space-between'>
                     <Text fw='500'>Trục</Text>
                     <ActionIcon variant='default' radius='xl' size='xs' onClick={toggle}>
                       {opened ? <ChevronUp width='70%' height='70%' /> : <ChevronDown width='70%' height='70%' />}
@@ -219,18 +299,35 @@ export const ItemCreate = () => {
                   </Group>
                 </Card.Section>
                 <Card.Section withBorder={opened} inheritPadding py='md'>
-                  <Stack>
-                    <Group grow>
-                      <NumberInput label='Số màu sắc' name='cylinder.setCount' control={control} required />
-                      <TextInput label='Vị trí' name='cylinder.locationId' control={control} />
+                  <Stack gap='xs'>
+                    <Group gap='xl' grow>
+                      <NumberInput
+                        label='Số cây trục trong bộ'
+                        name='cylinder.count'
+                        control={control}
+                        required
+                        classNames={{ label: classes.label }}
+                      />
+                      <TextInput
+                        label='Vị trí'
+                        name='cylinder.locationId'
+                        control={control}
+                        classNames={{ label: classes.label }}
+                      />
                     </Group>
-                    <Group grow>
-                      <NumberInput label='Chiều dài' name='cylinder.width' control={control} />
-                      <NumberInput label='Chu vi' name='cylinder.perimeter' control={control} />
-                    </Group>
-                    <Group grow>
-                      <TextInput label='Bộ dùng chung' name='cylinder.sharedCylinders.colors' control={control} />
-                      <TextInput label='Cây dùng chung' name='cylinder.sharedCylinders.colors' control={control} />
+                    <Group gap='xl' grow>
+                      <NumberInput
+                        label='Dài trục'
+                        name='cylinder.width'
+                        control={control}
+                        classNames={{ label: classes.label }}
+                      />
+                      <NumberInput
+                        label='Chu vi'
+                        name='cylinder.perimeter'
+                        control={control}
+                        classNames={{ label: classes.label }}
+                      />
                     </Group>
                   </Stack>
                 </Card.Section>
@@ -238,32 +335,32 @@ export const ItemCreate = () => {
             ) : null}
           </Stack>
         </Grid.Col>
-        <Grid.Col span={4}>
-          <Card shadow='lg' padding='md' radius='sm' withBorder>
-            <Card.Section withBorder inheritPadding py='sm'>
-              <Text fw='500'>Hình ảnh hàng hoá</Text>
-            </Card.Section>
-            <Card.Section withBorder inheritPadding pt='xs' py='md'>
-              <Stack>
-                {/* <TagsInput
-                  label={<Text size='sm'>Tag</Text>}
-                  placeholder='Enter tag'
-                  defaultValue={['React']}
-                  clearable
-                /> */}
-                <div>
-                  <Text size='sm'>Hình ảnh</Text>
-                  <Image
-                    radius='md'
-                    src={null}
-                    h='200px'
-                    w='100%'
-                    fallbackSrc='https://placehold.co/600x400?text=Placeholder'
-                  />
-                </div>
-              </Stack>
-            </Card.Section>
-          </Card>
+        <Grid.Col span={4} h='100%'>
+          <Stack gap='xs'>
+            <Card padding='md' radius='sm' shadow='lg' withBorder>
+              <Card.Section withBorder={opened} inheritPadding py='xs'>
+                <Group gap='xl' justify='space-between'>
+                  <Text fw='500'>Hình ảnh</Text>
+                  <ActionIcon variant='default' radius='xl' size='xs' onClick={toggle}>
+                    {opened ? <ChevronUp width='70%' height='70%' /> : <ChevronDown width='70%' height='70%' />}
+                  </ActionIcon>
+                </Group>
+              </Card.Section>
+              <Collapse in={opened}>
+                <Card.Section inheritPadding pt='xs'>
+                  <Stack gap='xs'>
+                    <Image
+                      radius='md'
+                      src={null}
+                      h='200px'
+                      w='100%'
+                      fallbackSrc='https://placehold.co/600x400?text=Placeholder'
+                    />
+                  </Stack>
+                </Card.Section>
+              </Collapse>
+            </Card>
+          </Stack>
         </Grid.Col>
       </Grid>
     </Create>

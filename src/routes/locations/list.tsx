@@ -5,9 +5,10 @@ import { List } from '@components/crud/list'
 import { DataTable } from '@components/table'
 import { removeLeadingTrailingSlashes } from '@utils/remove-leading-trailing-slash'
 import { useDisclosure } from '@mantine/hooks'
-import { Drawer } from '@mantine/core'
+import { ActionIcon, Drawer, Group } from '@mantine/core'
 import { NewLocationForm } from './components/new-location-form'
 import { AsyncBoundary } from '@suspensive/react'
+import { EyeIcon, Pen, Trash } from 'lucide-react'
 
 export const LocationList = () => {
   const location = useLocation()
@@ -21,12 +22,29 @@ export const LocationList = () => {
 
   const columns = [
     {
-      accessorKey: 'name',
+      accessorKey: 'fullPathName',
       header: 'Tên'
     },
     {
       accessorKey: 'locationType',
       header: 'Loại địa điểm'
+    },
+    {
+      accessorKey: '',
+      header: 'Hành động',
+      cell: () => (
+        <Group gap='xs'>
+          <ActionIcon variant='light' size='sm'>
+            <EyeIcon width='70%' height='70%' strokeWidth={1.5} />
+          </ActionIcon>
+          <ActionIcon variant='light' color='gray' size='sm'>
+            <Pen width='70%' height='70%' strokeWidth={1.5} />
+          </ActionIcon>
+          <ActionIcon variant='light' color='red' size='sm'>
+            <Trash width='70%' height='70%' strokeWidth={1.5} />
+          </ActionIcon>
+        </Group>
+      )
     }
   ]
 

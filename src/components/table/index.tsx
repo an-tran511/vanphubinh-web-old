@@ -32,7 +32,7 @@ export const DataTable = <TData, TValue>({ columns, data, isLoading }: DataTable
             {headerGroup.headers.map((header) => {
               return (
                 <Table.Th key={header.id}>
-                  <Text size='xs' c='dimmed' fw={700} truncate='end'>
+                  <Text size='xs' c='black' fw={700} truncate='end'>
                     {header.isPlaceholder ? null : flexRender(header.column.columnDef.header, header.getContext())}
                   </Text>
                 </Table.Th>
@@ -60,7 +60,7 @@ export const DataTable = <TData, TValue>({ columns, data, isLoading }: DataTable
                 <Center>
                   <Bird size='80' color='gray' />
                 </Center>
-                <Text c='dimmed'>Không có dữ liệu</Text>
+                <Text c='black'>Không có dữ liệu</Text>
               </Stack>
             </Table.Td>
           </Table.Tr>

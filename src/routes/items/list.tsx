@@ -6,7 +6,8 @@ import { DataTable } from '@components/table'
 import { removeLeadingTrailingSlashes } from '@utils/remove-leading-trailing-slash'
 import { useState } from 'react'
 import { useDebouncedCallback } from 'use-debounce'
-import { Card } from '@mantine/core'
+import { ActionIcon, Group } from '@mantine/core'
+import { EyeIcon, Pen, Trash } from 'lucide-react'
 
 export const ItemList = () => {
   const location = useLocation()
@@ -46,6 +47,23 @@ export const ItemList = () => {
     {
       accessorKey: 'purchaseUom.name',
       header: 'Đơn vị mua hàng'
+    },
+    {
+      accessorKey: '',
+      header: 'Hành động',
+      cell: () => (
+        <Group gap='xs'>
+          <ActionIcon variant='light' size='sm'>
+            <EyeIcon width='70%' height='70%' strokeWidth={1.5} />
+          </ActionIcon>
+          <ActionIcon variant='light' color='gray' size='sm'>
+            <Pen width='70%' height='70%' strokeWidth={1.5} />
+          </ActionIcon>
+          <ActionIcon variant='light' color='red' size='sm'>
+            <Trash width='70%' height='70%' strokeWidth={1.5} />
+          </ActionIcon>
+        </Group>
+      )
     }
   ]
   const items = data?.data ?? []
